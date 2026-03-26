@@ -1,0 +1,32 @@
+# Environment & secrets - NEVER commit these (HIPAA requirement)
+.env
+*.env.local
+*.env.production
+
+# Java
+backend/target/
+backend/*.jar
+*.class
+*.log
+
+# React
+frontend/node_modules/
+frontend/build/
+frontend/.env.local
+
+# ChromaDB local data
+chroma-data/
+*.sqlite3
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Audit logs (contain PHI - never commit)
+audit-logs/
+*.audit.log

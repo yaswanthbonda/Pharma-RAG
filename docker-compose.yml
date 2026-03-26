@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: pharma-chromadb
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - ANONYMIZED_TELEMETRY=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: pharma-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - OPENFDA_BASE_URL=https://api.fda.gov/drug
+    depends_on:
+      chromadb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: pharma-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:8080
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  ingest:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile
+    container_name: pharma-ingest
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
+      - OPENFDA_BASE_URL=https://api.fda.gov/drug
+    depends_on:
+      chromadb:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  chroma-data:
