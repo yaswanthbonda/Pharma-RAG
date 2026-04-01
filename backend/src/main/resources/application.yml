@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: pharma-rag-backend
+
+# Anthropic Claude API
+anthropic:
+  api:
+    key: ${ANTHROPIC_API_KEY}
+    base-url: https://api.anthropic.com
+    model: claude-sonnet-4-6
+    max-tokens: 2048
+    version: "2023-06-01"
+
+# ChromaDB vector store
+chroma:
+  host: ${CHROMA_HOST:localhost}
+  port: ${CHROMA_PORT:8001}
+  collection-name: pharma_drugs
+
+# OpenFDA
+openfda:
+  base-url: ${OPENFDA_BASE_URL:https://api.fda.gov/drug}
+
+# HIPAA-compliant logging: no PHI in log output
+logging:
+  level:
+    com.pharmarag: INFO
+    org.springframework: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Actuator (health only exposed)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+
+# CORS — allow React dev server
+pharmarag:
+  cors:
+    allowed-origins: "http://localhost:3000"
