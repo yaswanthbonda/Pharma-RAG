@@ -12,7 +12,7 @@ anthropic:
     base-url: https://api.anthropic.com
     # Override with the ANTHROPIC_MODEL env var (see .env.example)
     model: ${ANTHROPIC_MODEL:claude-sonnet-5-5}
-    max-tokens: 2048
+    max-tokens: ${ANTHROPIC_MAX_TOKENS:4096}
     version: "2023-06-01"
 
 # ChromaDB vector store
