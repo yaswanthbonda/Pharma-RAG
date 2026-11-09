@@ -8,6 +8,20 @@ A portfolio project that shows a Retrieval-Augmented Generation (RAG) pipeline e
 
 ---
 
+## Demo
+
+![Home page](docs/screenshots/Demo-Home-Page.png)
+
+| Substitution found (Atorvastatin) | Penicillin allergy |
+|---|---|
+| ![Atorvastatin substitution found](docs/screenshots/Demo-01-found-atorvastatin.png) | ![Penicillin allergy result](docs/screenshots/Demo-02-not-found-allergy-penicillin.png) |
+
+| Plan coverage (HMO) | RAG pipeline metadata |
+|---|---|
+| ![No covered substitute on the HMO plan](docs/screenshots/Demo-03-no-covered-substitute-hmo.png) | ![RAG pipeline metadata](docs/screenshots/Demo-RAG-pipeline-metadata.png) |
+
+---
+
 ## How it works
 
 ```
@@ -69,13 +83,21 @@ docker compose up --build
 
 Open http://localhost:3000. The first start downloads dependencies and ingests the data, so give the backend a minute (`docker compose logs -f backend`).
 
-Try these:
+### Demo values to test
 
-| Request | Expected |
-|---|---|
-| Atorvastatin 40mg, plan `STANDARD-PPO-2024`, no allergies | `FOUND` (another statin) |
-| Amoxicillin 500mg, allergy `penicillin` | Not amoxicillin; cephalosporin flagged for pharmacist review, or a non-penicillin option |
-| Rivaroxaban 20mg, plan `BASIC-HMO-2024` | Equivalent anticoagulants may be uncovered or need prescriber approval |
+| Field | Test 1 (happy path) | Test 2 (allergy) | Test 3 (coverage) |
+|---|---|---|---|
+| Prescribed Drug Name | Atorvastatin | Amoxicillin | Rivaroxaban |
+| Dosage | 40mg | 500mg | 20mg |
+| Member ID | `MBR-A1B2C3` | `MBR-D4E5F6` | `MBR-G7H8J9` |
+| Insurance Plan ID | `STANDARD-PPO-2024` | `STANDARD-PPO-2024` | `BASIC-HMO-2024` |
+| Drug Class | statin | antibiotic | blood thinner |
+| Reason | Out of Stock | Out of Stock | Out of Stock |
+| Allergies | none | click **Penicillin** | none |
+| Current medications | clarithromycin | none | aspirin |
+| What to look for | `FOUND` with another statin; simvastatin excluded for the clarithromycin interaction | No amoxicillin-type drug; cephalosporins flagged for pharmacist review | Rivaroxaban is not covered on the HMO plan; alternatives may need prescriber approval |
+
+Member IDs must look like `MBR-` followed by 4-12 capital letters or digits. The plan ID must match one of the two synthetic plans exactly.
 
 ## Run the tests
 
