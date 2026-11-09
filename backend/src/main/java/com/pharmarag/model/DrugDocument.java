@@ -6,14 +6,19 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * Represents a drug record stored in ChromaDB.
- * Sourced from OpenFDA API.
+ * A drug record stored (as text + embedding) in ChromaDB.
+ *
+ * Data provenance is explicit via {@code sourceType}:
+ *  - "seed_curated"       drug facts from resources/seed/drugs.json (curated reference, not authoritative)
+ *  - formulary lines      from resources/seed/formulary.json (SYNTHETIC - invented tiers and copays)
+ *  - labelExcerpt         real label text from the OpenFDA API when enrichment succeeds
  */
 @Data
 @Builder
 public class DrugDocument {
 
     private String id;
+    private String sourceType;
     private String genericName;
     private String brandName;
     private String drugClass;
@@ -24,25 +29,37 @@ public class DrugDocument {
     private List<String> interactions;
     private List<String> contraindications;
     private List<String> allergyFlags;
+    /** One line per plan, e.g. "STANDARD-PPO-2024: tier 1, copay $10" or "BASIC-HMO-2024: NOT COVERED" */
+    private List<String> formulary;
+    private String notes;
+    /** Short excerpt of the real FDA label (OpenFDA), if available */
+    private String labelExcerpt;
     private String manufacturer;
     private String ndc;
 
-    /** Pre-formatted text used for embedding */
+    /** Text that is embedded AND handed to Claude as retrieved context. */
     public String toEmbeddingText() {
-        return String.format(
-            "Drug: %s. Generic name: %s. Class: %s. Pharmacologic class: %s. " +
-            "Route: %s. Dosage forms: %s. Active ingredients: %s. " +
-            "Interactions: %s. Contraindications: %s. Allergy flags: %s.",
-            brandName != null ? brandName : genericName,
-            genericName,
-            drugClass != null ? drugClass : "unknown",
-            pharmacologicClass != null ? pharmacologicClass : "unknown",
-            routeOfAdministration != null ? routeOfAdministration : "oral",
-            dosageForms != null ? String.join(", ", dosageForms) : "tablet",
-            activeIngredients != null ? String.join(", ", activeIngredients) : genericName,
-            interactions != null ? String.join(", ", interactions) : "none listed",
-            contraindications != null ? String.join(", ", contraindications) : "none listed",
-            allergyFlags != null ? String.join(", ", allergyFlags) : "none"
-        );
+        StringBuilder sb = new StringBuilder();
+        sb.append("Drug: ").append(brandName != null ? brandName : genericName)
+          .append(". Generic name: ").append(genericName)
+          .append(". Class: ").append(drugClass != null ? drugClass : "unknown")
+          .append(". Pharmacologic class: ").append(pharmacologicClass != null ? pharmacologicClass : "unknown")
+          .append(". Route: ").append(routeOfAdministration != null ? routeOfAdministration : "oral")
+          .append(". Dosage forms: ").append(join(dosageForms, "tablet"))
+          .append(". Interactions: ").append(join(interactions, "none listed"))
+          .append(". Contraindications: ").append(join(contraindications, "none listed"))
+          .append(". Allergy flags: ").append(join(allergyFlags, "none")).append('.');
+        if (formulary != null && !formulary.isEmpty()) {
+            sb.append(" Formulary (synthetic demo data): ").append(String.join("; ", formulary)).append('.');
+        }
+        if (notes != null && !notes.isBlank()) sb.append(" Notes: ").append(notes).append('.');
+        if (labelExcerpt != null && !labelExcerpt.isBlank()) {
+            sb.append(" FDA label excerpt (OpenFDA): ").append(labelExcerpt);
+        }
+        return sb.toString();
+    }
+
+    private static String join(List<String> v, String fallback) {
+        return v != null && !v.isEmpty() ? String.join(", ", v) : fallback;
     }
 }

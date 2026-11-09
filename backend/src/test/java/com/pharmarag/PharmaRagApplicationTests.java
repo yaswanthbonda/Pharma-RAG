@@ -6,7 +6,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import com.pharmarag.service.ChromaService;
 import com.pharmarag.service.EmbeddingService;
-import com.pharmarag.service.OpenFdaIngestionService;
+import com.pharmarag.service.DrugIngestionService;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -17,7 +17,7 @@ class PharmaRagApplicationTests {
     ChromaService chromaService;
 
     @MockBean
-    OpenFdaIngestionService openFdaIngestionService;
+    DrugIngestionService drugIngestionService;
 
     // Avoids loading the ONNX embedding model during context startup
     @MockBean

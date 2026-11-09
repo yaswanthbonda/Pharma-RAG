@@ -1,0 +1,305 @@
+{
+  "_comment": "SYNTHETIC formulary for demo purposes only. Tiers and copays are invented and do not reflect any real plan. Drugs absent from a plan are 'not covered'.",
+  "plans": {
+    "STANDARD-PPO-2024": {
+      "atorvastatin": [
+        1,
+        "$10"
+      ],
+      "rosuvastatin": [
+        2,
+        "$35"
+      ],
+      "simvastatin": [
+        1,
+        "$10"
+      ],
+      "pravastatin": [
+        1,
+        "$10"
+      ],
+      "metoprolol": [
+        1,
+        "$10"
+      ],
+      "atenolol": [
+        1,
+        "$10"
+      ],
+      "carvedilol": [
+        2,
+        "$35"
+      ],
+      "propranolol": [
+        1,
+        "$10"
+      ],
+      "lisinopril": [
+        1,
+        "$10"
+      ],
+      "enalapril": [
+        1,
+        "$10"
+      ],
+      "ramipril": [
+        2,
+        "$35"
+      ],
+      "benazepril": [
+        2,
+        "$35"
+      ],
+      "amoxicillin": [
+        1,
+        "$10"
+      ],
+      "azithromycin": [
+        1,
+        "$10"
+      ],
+      "doxycycline": [
+        1,
+        "$10"
+      ],
+      "cephalexin": [
+        1,
+        "$10"
+      ],
+      "ciprofloxacin": [
+        1,
+        "$10"
+      ],
+      "sulfamethoxazole-trimethoprim": [
+        1,
+        "$10"
+      ],
+      "omeprazole": [
+        1,
+        "$10"
+      ],
+      "esomeprazole": [
+        2,
+        "$35"
+      ],
+      "pantoprazole": [
+        1,
+        "$10"
+      ],
+      "sertraline": [
+        1,
+        "$10"
+      ],
+      "escitalopram": [
+        2,
+        "$35"
+      ],
+      "fluoxetine": [
+        1,
+        "$10"
+      ],
+      "bupropion": [
+        2,
+        "$35"
+      ],
+      "cetirizine": [
+        1,
+        "$10"
+      ],
+      "loratadine": [
+        1,
+        "$10"
+      ],
+      "fexofenadine": [
+        2,
+        "$35"
+      ],
+      "warfarin": [
+        1,
+        "$10"
+      ],
+      "apixaban": [
+        3,
+        "$55"
+      ],
+      "rivaroxaban": [
+        3,
+        "$55"
+      ],
+      "clopidogrel": [
+        3,
+        "$55"
+      ],
+      "amlodipine": [
+        1,
+        "$10"
+      ],
+      "diltiazem": [
+        2,
+        "$35"
+      ],
+      "verapamil": [
+        1,
+        "$10"
+      ],
+      "nifedipine": [
+        1,
+        "$10"
+      ],
+      "hydrochlorothiazide": [
+        1,
+        "$10"
+      ],
+      "furosemide": [
+        1,
+        "$10"
+      ],
+      "spironolactone": [
+        1,
+        "$10"
+      ]
+    },
+    "BASIC-HMO-2024": {
+      "atorvastatin": [
+        1,
+        "$5"
+      ],
+      "rosuvastatin": [
+        2,
+        "$25"
+      ],
+      "simvastatin": [
+        1,
+        "$5"
+      ],
+      "pravastatin": [
+        1,
+        "$5"
+      ],
+      "metoprolol": [
+        1,
+        "$5"
+      ],
+      "atenolol": [
+        1,
+        "$5"
+      ],
+      "lisinopril": [
+        1,
+        "$5"
+      ],
+      "enalapril": [
+        1,
+        "$5"
+      ],
+      "ramipril": [
+        2,
+        "$25"
+      ],
+      "benazepril": [
+        2,
+        "$25"
+      ],
+      "amoxicillin": [
+        1,
+        "$5"
+      ],
+      "azithromycin": [
+        1,
+        "$5"
+      ],
+      "doxycycline": [
+        1,
+        "$5"
+      ],
+      "cephalexin": [
+        1,
+        "$5"
+      ],
+      "ciprofloxacin": [
+        1,
+        "$5"
+      ],
+      "sulfamethoxazole-trimethoprim": [
+        1,
+        "$5"
+      ],
+      "omeprazole": [
+        1,
+        "$5"
+      ],
+      "pantoprazole": [
+        1,
+        "$5"
+      ],
+      "lansoprazole": [
+        1,
+        "$5"
+      ],
+      "sertraline": [
+        1,
+        "$5"
+      ],
+      "escitalopram": [
+        2,
+        "$25"
+      ],
+      "fluoxetine": [
+        1,
+        "$5"
+      ],
+      "bupropion": [
+        2,
+        "$25"
+      ],
+      "cetirizine": [
+        1,
+        "$5"
+      ],
+      "loratadine": [
+        1,
+        "$5"
+      ],
+      "warfarin": [
+        1,
+        "$5"
+      ],
+      "apixaban": [
+        3,
+        "$70"
+      ],
+      "clopidogrel": [
+        3,
+        "$70"
+      ],
+      "amlodipine": [
+        1,
+        "$5"
+      ],
+      "diltiazem": [
+        2,
+        "$25"
+      ],
+      "verapamil": [
+        1,
+        "$5"
+      ],
+      "hydrochlorothiazide": [
+        1,
+        "$5"
+      ],
+      "furosemide": [
+        1,
+        "$5"
+      ],
+      "chlorthalidone": [
+        1,
+        "$5"
+      ],
+      "spironolactone": [
+        1,
+        "$5"
+      ]
+    }
+  }
+}

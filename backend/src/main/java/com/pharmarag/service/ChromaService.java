@@ -82,7 +82,7 @@ public class ChromaService {
             m.put("genericName", doc.getGenericName() != null ? doc.getGenericName() : "");
             m.put("brandName", doc.getBrandName() != null ? doc.getBrandName() : "");
             m.put("drugClass", doc.getDrugClass() != null ? doc.getDrugClass() : "");
-            m.put("ndc", doc.getNdc() != null ? doc.getNdc() : "");
+            m.put("sourceType", doc.getSourceType() != null ? doc.getSourceType() : "");
             return m;
         }).toList();
 

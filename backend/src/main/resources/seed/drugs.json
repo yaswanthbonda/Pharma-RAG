@@ -1,0 +1,1005 @@
+{
+  "_comment": "Curated reference data for a portfolio demo. NOT authoritative clinical data; verify against FDA labels. Not for clinical use.",
+  "drugs": [
+    {
+      "genericName": "atorvastatin",
+      "brandName": "Lipitor",
+      "drugClass": "statin",
+      "pharmacologicClass": "HMG-CoA reductase inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet",
+        "80mg tablet"
+      ],
+      "interactions": [
+        "clarithromycin",
+        "cyclosporine",
+        "gemfibrozil"
+      ],
+      "contraindications": [
+        "active liver disease",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "rosuvastatin",
+      "brandName": "Crestor",
+      "drugClass": "statin",
+      "pharmacologicClass": "HMG-CoA reductase inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "5mg tablet",
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet"
+      ],
+      "interactions": [
+        "cyclosporine",
+        "gemfibrozil"
+      ],
+      "contraindications": [
+        "active liver disease",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Dose roughly 10mg rosuvastatin ~ 40mg atorvastatin in LDL-lowering intensity"
+    },
+    {
+      "genericName": "simvastatin",
+      "brandName": "Zocor",
+      "drugClass": "statin",
+      "pharmacologicClass": "HMG-CoA reductase inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet",
+        "80mg tablet"
+      ],
+      "interactions": [
+        "amlodipine",
+        "diltiazem",
+        "verapamil",
+        "clarithromycin",
+        "gemfibrozil"
+      ],
+      "contraindications": [
+        "active liver disease",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "pravastatin",
+      "brandName": "Pravachol",
+      "drugClass": "statin",
+      "pharmacologicClass": "HMG-CoA reductase inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet",
+        "80mg tablet"
+      ],
+      "interactions": [
+        "cyclosporine",
+        "gemfibrozil"
+      ],
+      "contraindications": [
+        "active liver disease",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "metoprolol",
+      "brandName": "Lopressor",
+      "drugClass": "beta blocker",
+      "pharmacologicClass": "beta-1 selective adrenergic blocker",
+      "route": "oral",
+      "dosageForms": [
+        "25mg tablet",
+        "50mg tablet",
+        "100mg tablet"
+      ],
+      "interactions": [
+        "verapamil",
+        "diltiazem",
+        "clonidine"
+      ],
+      "contraindications": [
+        "severe bradycardia",
+        "second- or third-degree heart block",
+        "decompensated heart failure"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "atenolol",
+      "brandName": "Tenormin",
+      "drugClass": "beta blocker",
+      "pharmacologicClass": "beta-1 selective adrenergic blocker",
+      "route": "oral",
+      "dosageForms": [
+        "25mg tablet",
+        "50mg tablet",
+        "100mg tablet"
+      ],
+      "interactions": [
+        "verapamil",
+        "diltiazem",
+        "clonidine"
+      ],
+      "contraindications": [
+        "severe bradycardia",
+        "second- or third-degree heart block",
+        "decompensated heart failure"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "carvedilol",
+      "brandName": "Coreg",
+      "drugClass": "beta blocker",
+      "pharmacologicClass": "non-selective beta blocker with alpha-1 blockade",
+      "route": "oral",
+      "dosageForms": [
+        "3.125mg tablet",
+        "6.25mg tablet",
+        "12.5mg tablet",
+        "25mg tablet"
+      ],
+      "interactions": [
+        "verapamil",
+        "diltiazem",
+        "clonidine"
+      ],
+      "contraindications": [
+        "severe bradycardia",
+        "second- or third-degree heart block",
+        "decompensated heart failure",
+        "asthma"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Non-selective; avoid in asthma"
+    },
+    {
+      "genericName": "propranolol",
+      "brandName": "Inderal",
+      "drugClass": "beta blocker",
+      "pharmacologicClass": "non-selective beta blocker",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet"
+      ],
+      "interactions": [
+        "verapamil",
+        "diltiazem",
+        "clonidine"
+      ],
+      "contraindications": [
+        "severe bradycardia",
+        "second- or third-degree heart block",
+        "decompensated heart failure",
+        "asthma"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Non-selective; avoid in asthma"
+    },
+    {
+      "genericName": "lisinopril",
+      "brandName": "Zestril",
+      "drugClass": "ACE inhibitor",
+      "pharmacologicClass": "angiotensin-converting enzyme inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "5mg tablet",
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet"
+      ],
+      "interactions": [
+        "potassium supplements",
+        "NSAIDs",
+        "lithium",
+        "spironolactone"
+      ],
+      "contraindications": [
+        "history of angioedema",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "enalapril",
+      "brandName": "Vasotec",
+      "drugClass": "ACE inhibitor",
+      "pharmacologicClass": "angiotensin-converting enzyme inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "2.5mg tablet",
+        "5mg tablet",
+        "10mg tablet",
+        "20mg tablet"
+      ],
+      "interactions": [
+        "potassium supplements",
+        "NSAIDs",
+        "lithium",
+        "spironolactone"
+      ],
+      "contraindications": [
+        "history of angioedema",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "ramipril",
+      "brandName": "Altace",
+      "drugClass": "ACE inhibitor",
+      "pharmacologicClass": "angiotensin-converting enzyme inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "2.5mg capsule",
+        "5mg capsule",
+        "10mg capsule"
+      ],
+      "interactions": [
+        "potassium supplements",
+        "NSAIDs",
+        "lithium",
+        "spironolactone"
+      ],
+      "contraindications": [
+        "history of angioedema",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "benazepril",
+      "brandName": "Lotensin",
+      "drugClass": "ACE inhibitor",
+      "pharmacologicClass": "angiotensin-converting enzyme inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "20mg tablet",
+        "40mg tablet"
+      ],
+      "interactions": [
+        "potassium supplements",
+        "NSAIDs",
+        "lithium",
+        "spironolactone"
+      ],
+      "contraindications": [
+        "history of angioedema",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "amoxicillin",
+      "brandName": "Amoxil",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "penicillin-class antibiotic",
+      "route": "oral",
+      "dosageForms": [
+        "250mg capsule",
+        "500mg capsule"
+      ],
+      "interactions": [
+        "warfarin",
+        "methotrexate"
+      ],
+      "contraindications": [
+        "penicillin allergy"
+      ],
+      "allergyFlags": [
+        "penicillin"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "azithromycin",
+      "brandName": "Zithromax",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "macrolide antibiotic",
+      "route": "oral",
+      "dosageForms": [
+        "250mg tablet",
+        "500mg tablet"
+      ],
+      "interactions": [
+        "warfarin",
+        "digoxin"
+      ],
+      "contraindications": [
+        "macrolide allergy",
+        "history of cholestatic jaundice with azithromycin"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "doxycycline",
+      "brandName": "Vibramycin",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "tetracycline-class antibiotic",
+      "route": "oral",
+      "dosageForms": [
+        "100mg tablet",
+        "100mg capsule"
+      ],
+      "interactions": [
+        "warfarin",
+        "antacids",
+        "isotretinoin"
+      ],
+      "contraindications": [
+        "tetracycline allergy",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "cephalexin",
+      "brandName": "Keflex",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "first-generation cephalosporin",
+      "route": "oral",
+      "dosageForms": [
+        "250mg capsule",
+        "500mg capsule"
+      ],
+      "interactions": [
+        "warfarin",
+        "metformin"
+      ],
+      "contraindications": [
+        "cephalosporin allergy"
+      ],
+      "allergyFlags": [
+        "cephalosporin"
+      ],
+      "notes": "Possible cross-reactivity in severe penicillin allergy; flag for pharmacist review"
+    },
+    {
+      "genericName": "ciprofloxacin",
+      "brandName": "Cipro",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "fluoroquinolone antibiotic",
+      "route": "oral",
+      "dosageForms": [
+        "250mg tablet",
+        "500mg tablet"
+      ],
+      "interactions": [
+        "warfarin",
+        "tizanidine",
+        "antacids"
+      ],
+      "contraindications": [
+        "fluoroquinolone allergy",
+        "history of tendon disorder with fluoroquinolones"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "sulfamethoxazole-trimethoprim",
+      "brandName": "Bactrim",
+      "drugClass": "antibiotic",
+      "pharmacologicClass": "sulfonamide antibiotic",
+      "route": "oral",
+      "dosageForms": [
+        "800mg/160mg tablet"
+      ],
+      "interactions": [
+        "warfarin",
+        "methotrexate",
+        "ACE inhibitors"
+      ],
+      "contraindications": [
+        "sulfa allergy"
+      ],
+      "allergyFlags": [
+        "sulfa"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "omeprazole",
+      "brandName": "Prilosec",
+      "drugClass": "proton pump inhibitor",
+      "pharmacologicClass": "proton pump inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "20mg capsule",
+        "40mg capsule"
+      ],
+      "interactions": [
+        "clopidogrel",
+        "methotrexate",
+        "warfarin"
+      ],
+      "contraindications": [
+        "hypersensitivity to proton pump inhibitors"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "esomeprazole",
+      "brandName": "Nexium",
+      "drugClass": "proton pump inhibitor",
+      "pharmacologicClass": "proton pump inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "20mg capsule",
+        "40mg capsule"
+      ],
+      "interactions": [
+        "clopidogrel",
+        "methotrexate",
+        "warfarin"
+      ],
+      "contraindications": [
+        "hypersensitivity to proton pump inhibitors"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "pantoprazole",
+      "brandName": "Protonix",
+      "drugClass": "proton pump inhibitor",
+      "pharmacologicClass": "proton pump inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "20mg tablet",
+        "40mg tablet"
+      ],
+      "interactions": [
+        "methotrexate",
+        "warfarin"
+      ],
+      "contraindications": [
+        "hypersensitivity to proton pump inhibitors"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Weaker CYP2C19 effect, often preferred with clopidogrel"
+    },
+    {
+      "genericName": "lansoprazole",
+      "brandName": "Prevacid",
+      "drugClass": "proton pump inhibitor",
+      "pharmacologicClass": "proton pump inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "15mg capsule",
+        "30mg capsule"
+      ],
+      "interactions": [
+        "methotrexate",
+        "warfarin"
+      ],
+      "contraindications": [
+        "hypersensitivity to proton pump inhibitors"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "sertraline",
+      "brandName": "Zoloft",
+      "drugClass": "antidepressant",
+      "pharmacologicClass": "selective serotonin reuptake inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "25mg tablet",
+        "50mg tablet",
+        "100mg tablet"
+      ],
+      "interactions": [
+        "MAO inhibitors",
+        "tramadol",
+        "NSAIDs",
+        "warfarin"
+      ],
+      "contraindications": [
+        "concurrent MAO inhibitor use"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "escitalopram",
+      "brandName": "Lexapro",
+      "drugClass": "antidepressant",
+      "pharmacologicClass": "selective serotonin reuptake inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "5mg tablet",
+        "10mg tablet",
+        "20mg tablet"
+      ],
+      "interactions": [
+        "MAO inhibitors",
+        "tramadol",
+        "NSAIDs",
+        "warfarin"
+      ],
+      "contraindications": [
+        "concurrent MAO inhibitor use"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "fluoxetine",
+      "brandName": "Prozac",
+      "drugClass": "antidepressant",
+      "pharmacologicClass": "selective serotonin reuptake inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "10mg capsule",
+        "20mg capsule",
+        "40mg capsule"
+      ],
+      "interactions": [
+        "MAO inhibitors",
+        "tramadol",
+        "NSAIDs",
+        "warfarin"
+      ],
+      "contraindications": [
+        "concurrent MAO inhibitor use"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "bupropion",
+      "brandName": "Wellbutrin",
+      "drugClass": "antidepressant",
+      "pharmacologicClass": "norepinephrine-dopamine reuptake inhibitor",
+      "route": "oral",
+      "dosageForms": [
+        "75mg tablet",
+        "100mg tablet",
+        "150mg SR tablet"
+      ],
+      "interactions": [
+        "MAO inhibitors",
+        "tramadol"
+      ],
+      "contraindications": [
+        "seizure disorder",
+        "eating disorder",
+        "concurrent MAO inhibitor use"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "cetirizine",
+      "brandName": "Zyrtec",
+      "drugClass": "antihistamine",
+      "pharmacologicClass": "second-generation H1 antihistamine",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet"
+      ],
+      "interactions": [
+        "alcohol",
+        "sedatives"
+      ],
+      "contraindications": [
+        "hypersensitivity to hydroxyzine"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "loratadine",
+      "brandName": "Claritin",
+      "drugClass": "antihistamine",
+      "pharmacologicClass": "second-generation H1 antihistamine",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet"
+      ],
+      "interactions": [
+        "alcohol"
+      ],
+      "contraindications": [
+        "hypersensitivity to loratadine"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "fexofenadine",
+      "brandName": "Allegra",
+      "drugClass": "antihistamine",
+      "pharmacologicClass": "second-generation H1 antihistamine",
+      "route": "oral",
+      "dosageForms": [
+        "60mg tablet",
+        "180mg tablet"
+      ],
+      "interactions": [
+        "fruit juices",
+        "antacids containing aluminum or magnesium"
+      ],
+      "contraindications": [
+        "hypersensitivity to fexofenadine"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "warfarin",
+      "brandName": "Coumadin",
+      "drugClass": "blood thinner",
+      "pharmacologicClass": "vitamin K antagonist anticoagulant",
+      "route": "oral",
+      "dosageForms": [
+        "1mg tablet",
+        "2mg tablet",
+        "5mg tablet"
+      ],
+      "interactions": [
+        "NSAIDs",
+        "aspirin",
+        "many antibiotics",
+        "SSRIs"
+      ],
+      "contraindications": [
+        "active bleeding",
+        "pregnancy"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Needs INR monitoring; NOT directly interchangeable with DOACs (apixaban, rivaroxaban) - prescriber approval required"
+    },
+    {
+      "genericName": "apixaban",
+      "brandName": "Eliquis",
+      "drugClass": "blood thinner",
+      "pharmacologicClass": "factor Xa inhibitor anticoagulant",
+      "route": "oral",
+      "dosageForms": [
+        "2.5mg tablet",
+        "5mg tablet"
+      ],
+      "interactions": [
+        "NSAIDs",
+        "aspirin",
+        "ketoconazole",
+        "rifampin"
+      ],
+      "contraindications": [
+        "active pathological bleeding"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "DOAC; not interchangeable with warfarin without prescriber involvement"
+    },
+    {
+      "genericName": "rivaroxaban",
+      "brandName": "Xarelto",
+      "drugClass": "blood thinner",
+      "pharmacologicClass": "factor Xa inhibitor anticoagulant",
+      "route": "oral",
+      "dosageForms": [
+        "10mg tablet",
+        "15mg tablet",
+        "20mg tablet"
+      ],
+      "interactions": [
+        "NSAIDs",
+        "aspirin",
+        "ketoconazole",
+        "rifampin"
+      ],
+      "contraindications": [
+        "active pathological bleeding"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "DOAC; not interchangeable with warfarin without prescriber involvement"
+    },
+    {
+      "genericName": "clopidogrel",
+      "brandName": "Plavix",
+      "drugClass": "blood thinner",
+      "pharmacologicClass": "P2Y12 platelet inhibitor (antiplatelet)",
+      "route": "oral",
+      "dosageForms": [
+        "75mg tablet"
+      ],
+      "interactions": [
+        "omeprazole",
+        "esomeprazole",
+        "NSAIDs",
+        "warfarin"
+      ],
+      "contraindications": [
+        "active bleeding"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": "Antiplatelet, not an anticoagulant; not a substitute for warfarin or DOACs"
+    },
+    {
+      "genericName": "amlodipine",
+      "brandName": "Norvasc",
+      "drugClass": "calcium channel blocker",
+      "pharmacologicClass": "dihydropyridine calcium channel blocker",
+      "route": "oral",
+      "dosageForms": [
+        "2.5mg tablet",
+        "5mg tablet",
+        "10mg tablet"
+      ],
+      "interactions": [
+        "simvastatin",
+        "clarithromycin"
+      ],
+      "contraindications": [
+        "severe hypotension"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "diltiazem",
+      "brandName": "Cardizem",
+      "drugClass": "calcium channel blocker",
+      "pharmacologicClass": "non-dihydropyridine calcium channel blocker",
+      "route": "oral",
+      "dosageForms": [
+        "30mg tablet",
+        "60mg tablet",
+        "120mg ER capsule"
+      ],
+      "interactions": [
+        "metoprolol",
+        "atenolol",
+        "simvastatin",
+        "digoxin"
+      ],
+      "contraindications": [
+        "second- or third-degree heart block",
+        "severe hypotension"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "verapamil",
+      "brandName": "Calan",
+      "drugClass": "calcium channel blocker",
+      "pharmacologicClass": "non-dihydropyridine calcium channel blocker",
+      "route": "oral",
+      "dosageForms": [
+        "40mg tablet",
+        "80mg tablet",
+        "120mg tablet"
+      ],
+      "interactions": [
+        "metoprolol",
+        "atenolol",
+        "simvastatin",
+        "digoxin"
+      ],
+      "contraindications": [
+        "second- or third-degree heart block",
+        "severe hypotension"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "nifedipine",
+      "brandName": "Procardia",
+      "drugClass": "calcium channel blocker",
+      "pharmacologicClass": "dihydropyridine calcium channel blocker",
+      "route": "oral",
+      "dosageForms": [
+        "30mg ER tablet",
+        "60mg ER tablet"
+      ],
+      "interactions": [
+        "clarithromycin",
+        "grapefruit juice"
+      ],
+      "contraindications": [
+        "cardiogenic shock"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    },
+    {
+      "genericName": "hydrochlorothiazide",
+      "brandName": "Microzide",
+      "drugClass": "diuretic",
+      "pharmacologicClass": "thiazide diuretic",
+      "route": "oral",
+      "dosageForms": [
+        "12.5mg capsule",
+        "25mg tablet",
+        "50mg tablet"
+      ],
+      "interactions": [
+        "lithium",
+        "NSAIDs",
+        "digoxin"
+      ],
+      "contraindications": [
+        "anuria"
+      ],
+      "allergyFlags": [
+        "sulfa"
+      ],
+      "notes": "Sulfonamide-derived; cross-reactivity with sulfa antibiotic allergy is low but flag for pharmacist review"
+    },
+    {
+      "genericName": "furosemide",
+      "brandName": "Lasix",
+      "drugClass": "diuretic",
+      "pharmacologicClass": "loop diuretic",
+      "route": "oral",
+      "dosageForms": [
+        "20mg tablet",
+        "40mg tablet",
+        "80mg tablet"
+      ],
+      "interactions": [
+        "lithium",
+        "NSAIDs",
+        "digoxin",
+        "aminoglycosides"
+      ],
+      "contraindications": [
+        "anuria"
+      ],
+      "allergyFlags": [
+        "sulfa"
+      ],
+      "notes": "Sulfonamide-derived; flag for pharmacist review in sulfa allergy"
+    },
+    {
+      "genericName": "chlorthalidone",
+      "brandName": "Thalitone",
+      "drugClass": "diuretic",
+      "pharmacologicClass": "thiazide-like diuretic",
+      "route": "oral",
+      "dosageForms": [
+        "25mg tablet",
+        "50mg tablet"
+      ],
+      "interactions": [
+        "lithium",
+        "NSAIDs",
+        "digoxin"
+      ],
+      "contraindications": [
+        "anuria"
+      ],
+      "allergyFlags": [
+        "sulfa"
+      ],
+      "notes": "Sulfonamide-derived; flag for pharmacist review in sulfa allergy"
+    },
+    {
+      "genericName": "spironolactone",
+      "brandName": "Aldactone",
+      "drugClass": "diuretic",
+      "pharmacologicClass": "potassium-sparing aldosterone antagonist",
+      "route": "oral",
+      "dosageForms": [
+        "25mg tablet",
+        "50mg tablet",
+        "100mg tablet"
+      ],
+      "interactions": [
+        "ACE inhibitors",
+        "potassium supplements",
+        "NSAIDs",
+        "lithium"
+      ],
+      "contraindications": [
+        "hyperkalemia",
+        "Addison's disease"
+      ],
+      "allergyFlags": [
+        "none"
+      ],
+      "notes": ""
+    }
+  ]
+}

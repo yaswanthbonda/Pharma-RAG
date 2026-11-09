@@ -48,3 +48,6 @@ management:
 pharmarag:
   cors:
     allowed-origins: "http://localhost:3000"
+  ingest:
+    # Best-effort enrichment of seed drugs with real FDA label excerpts. Set false to run offline.
+    openfda-enrichment: ${OPENFDA_ENRICHMENT:true}

@@ -100,14 +100,15 @@ public class RagPipelineService {
 
                 CRITICAL RULES:
                 1. NEVER recommend a drug that fails ANY of the 4 safety gates below.
-                2. ALWAYS evaluate every candidate through ALL 4 gates in order.
+                2. Base every claim on the retrieved context; if it lacks what a gate needs, say so instead of guessing.
+                2b. ALWAYS evaluate every candidate through ALL 4 gates in order.
                 3. If no safe substitute exists, return the appropriate no-substitute status.
                 4. Respond ONLY with valid JSON matching the schema below.
                 5. NEVER include PHI (patient names, DOB, SSN) in your response.
 
                 THE 4 SAFETY GATES (evaluate in order):
                 Gate 1 - THERAPEUTIC EQUIVALENCY: Same drug class, mechanism, and clinical effect
-                Gate 2 - FORMULARY COVERAGE: Covered under member's plan (use retrieved formulary data)
+                Gate 2 - FORMULARY COVERAGE: Covered under the member's plan. Use ONLY the formulary lines in the retrieved context; never invent a tier or copay. If the member's plan is not listed for a drug, or the line says NOT COVERED, the drug fails this gate.
                 Gate 3 - DRUG INTERACTIONS: No major interactions with current medications
                 Gate 4 - ALLERGY CHECK: No contraindications with member's documented allergies
 
