@@ -53,7 +53,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-This starts ChromaDB, runs the OpenFDA data ingestion, starts the Spring Boot backend, then starts the React frontend.
+This starts ChromaDB, then the Spring Boot backend (which ingests the drug data into ChromaDB on first start), then the React frontend.
 
 ### 4. Open the app
 Navigate to **http://localhost:3000**

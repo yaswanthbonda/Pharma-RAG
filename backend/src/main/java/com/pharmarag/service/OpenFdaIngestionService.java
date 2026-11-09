@@ -178,6 +178,27 @@ public class OpenFdaIngestionService {
                     .activeIngredients(List.of("azithromycin dihydrate")).interactions(List.of("warfarin", "digoxin", "antacids"))
                     .contraindications(List.of("macrolide allergy", "hepatic impairment")).allergyFlags(List.of("none")).ndc("0069-3060-20").build()
             );
+            case "beta blocker" -> List.of(
+                DrugDocument.builder().id("mock-metoprolol").genericName("Metoprolol")
+                    .brandName("Lopressor").drugClass("beta blocker").pharmacologicClass("beta-1 selective adrenergic blocker")
+                    .routeOfAdministration("oral").dosageForms(List.of("25mg tablet", "50mg tablet", "100mg tablet"))
+                    .activeIngredients(List.of("metoprolol tartrate")).interactions(List.of("verapamil", "clonidine", "digoxin"))
+                    .contraindications(List.of("severe bradycardia", "heart block")).allergyFlags(List.of("none")).ndc("0078-0378-05").build()
+            );
+            case "ACE inhibitor" -> List.of(
+                DrugDocument.builder().id("mock-lisinopril").genericName("Lisinopril")
+                    .brandName("Zestril").drugClass("ACE inhibitor").pharmacologicClass("angiotensin-converting enzyme inhibitor")
+                    .routeOfAdministration("oral").dosageForms(List.of("5mg tablet", "10mg tablet", "20mg tablet", "40mg tablet"))
+                    .activeIngredients(List.of("lisinopril")).interactions(List.of("NSAIDs", "potassium supplements", "lithium"))
+                    .contraindications(List.of("angioedema history", "pregnancy")).allergyFlags(List.of("none")).ndc("0310-0130-10").build()
+            );
+            case "proton pump inhibitor" -> List.of(
+                DrugDocument.builder().id("mock-omeprazole").genericName("Omeprazole")
+                    .brandName("Prilosec").drugClass("proton pump inhibitor").pharmacologicClass("proton pump inhibitor")
+                    .routeOfAdministration("oral").dosageForms(List.of("20mg capsule", "40mg capsule"))
+                    .activeIngredients(List.of("omeprazole")).interactions(List.of("clopidogrel", "methotrexate", "warfarin"))
+                    .contraindications(List.of("hypersensitivity to PPIs")).allergyFlags(List.of("none")).ndc("0186-0742-31").build()
+            );
             default -> List.of();
         };
     }

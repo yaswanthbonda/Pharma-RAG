@@ -53,19 +53,5 @@ services:
       backend:
         condition: service_healthy
 
-  ingest:
-    build:
-      context: ./scripts
-      dockerfile: Dockerfile
-    container_name: pharma-ingest
-    environment:
-      - CHROMA_HOST=chromadb
-      - CHROMA_PORT=8000
-      - OPENFDA_BASE_URL=https://api.fda.gov/drug
-    depends_on:
-      chromadb:
-        condition: service_healthy
-    restart: "no"
-
 volumes:
   chroma-data:
