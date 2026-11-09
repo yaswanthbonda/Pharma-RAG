@@ -5,10 +5,14 @@ RUN mvn dependency:go-offline -q
 COPY src ./src
 RUN mvn package -DskipTests -q
 
-FROM eclipse-temurin:17-jre-alpine
+# Debian/Ubuntu-based runtime (not Alpine): ONNX Runtime, used for the in-process
+# embedding model, ships glibc native libraries that do not load on Alpine's musl.
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-# curl is needed by the docker-compose healthcheck (alpine does not ship it)
-RUN apk add --no-cache curl && addgroup -S pharma && adduser -S pharma -G pharma
+# curl: used by the docker-compose healthcheck. --create-home: native libs/caches need a writable home.
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system pharma && useradd --system --gid pharma --create-home pharma
 COPY --from=build /app/target/pharma-rag-backend-1.0.0.jar app.jar
 RUN chown pharma:pharma app.jar
 USER pharma

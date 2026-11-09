@@ -28,55 +28,7 @@ public class ClaudeService {
     private int maxTokens;
 
     /**
-     * Generates a text embedding using Claude's embedding endpoint.
-     * Note: Claude uses the messages API with a special embedding prompt
-     * to produce a consistent semantic vector representation.
-     *
-     * For production, use a dedicated embedding model (e.g., voyage-3)
-     * via the Anthropic-compatible API. For this demo, we use a
-     * hash-based deterministic pseudo-embedding so the app works
-     * without a separate embedding API key.
-     */
-    public List<Double> embed(String text) {
-        // Production-ready: swap this with voyage-3 or text-embedding-ada-002
-        // For demo: generate a 384-dimensional deterministic pseudo-embedding
-        return generateDemoEmbedding(text);
-    }
-
-    /**
-     * Generates a deterministic pseudo-embedding for demo purposes.
-     * In production, replace with: Voyage AI (anthropic's recommended embedder)
-     * or OpenAI text-embedding-ada-002.
-     *
-     * The vector is seeded from the text content so semantically related
-     * phrases will have higher cosine similarity than unrelated ones.
-     */
-    private List<Double> generateDemoEmbedding(String text) {
-        int dimensions = 384;
-        double[] vector = new double[dimensions];
-        String normalized = text.toLowerCase().replaceAll("[^a-z0-9 ]", "");
-        String[] tokens = normalized.split("\\s+");
-
-        for (String token : tokens) {
-            int hash = token.hashCode();
-            for (int i = 0; i < dimensions; i++) {
-                vector[i] += Math.sin((hash + i) * 0.1) * (1.0 / tokens.length);
-            }
-        }
-
-        // Normalize to unit length
-        double norm = 0;
-        for (double v : vector) norm += v * v;
-        norm = Math.sqrt(norm);
-        if (norm > 0) for (int i = 0; i < dimensions; i++) vector[i] /= norm;
-
-        List<Double> result = new java.util.ArrayList<>();
-        for (double v : vector) result.add(v);
-        return result;
-    }
-
-    /**
-     * Calls Claude claude-sonnet-4-6 with the full RAG prompt and returns raw response text.
+     * Calls Claude with the full RAG prompt and returns raw response text.
      *
      * @param systemPrompt The HIPAA-aware system instructions
      * @param userPrompt   The assembled context + query

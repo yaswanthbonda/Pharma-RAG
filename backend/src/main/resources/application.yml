@@ -19,7 +19,8 @@ anthropic:
 chroma:
   host: ${CHROMA_HOST:localhost}
   port: ${CHROMA_PORT:8001}
-  collection-name: pharma_drugs
+  # New name on purpose: collections created before real embeddings hold incompatible vectors
+  collection-name: pharma_drugs_minilm
 
 # OpenFDA
 openfda:

@@ -24,7 +24,7 @@ public class OpenFdaIngestionService {
     private final WebClient openFdaWebClient;
 
     private final ChromaService chromaService;
-    private final ClaudeService claudeService;
+    private final EmbeddingService embeddingService;
 
     // Common drug classes to ingest from OpenFDA
     private static final List<String> DRUG_CLASSES = List.of(
@@ -141,7 +141,7 @@ public class OpenFdaIngestionService {
 
     private void ingestBatch(List<DrugDocument> docs) {
         List<List<Double>> embeddings = docs.stream()
-                .map(doc -> claudeService.embed(doc.toEmbeddingText()))
+                .map(doc -> embeddingService.embed(doc.toEmbeddingText()))
                 .collect(Collectors.toList());
         chromaService.addDocuments(docs, embeddings);
     }

@@ -29,6 +29,10 @@ public class ChromaService {
 
     private String collectionId;
 
+    public String getCollectionName() {
+        return collectionName;
+    }
+
     /**
      * Creates the ChromaDB collection if it does not exist.
      * Called at application startup.
@@ -38,7 +42,10 @@ public class ChromaService {
                 .uri("/api/v1/collections")
                 .bodyValue(Map.of(
                         "name", collectionName,
-                        "metadata", Map.of("description", "PharmaSub drug embeddings")
+                        "metadata", Map.of(
+                                "description", "PharmaSub drug embeddings",
+                                // topScore() assumes cosine distance (score = 1 - distance)
+                                "hnsw:space", "cosine")
                 ))
                 .retrieve()
                 .bodyToMono(ChromaCollection.class)

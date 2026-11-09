@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RagPipelineService {
 
+    private final EmbeddingService embeddingService;
     private final ClaudeService claudeService;
     private final ChromaService chromaService;
     private final AuditLogger auditLogger;
@@ -38,9 +39,9 @@ public class RagPipelineService {
 
         long retrievalStart = System.currentTimeMillis();
 
-        // Step 1: Build query text and embed it
-        String queryText = buildQueryText(request);
-        List<Double> queryEmbedding = claudeService.embed(queryText);
+        // Step 1: Build the retrieval query and embed it (same model used at ingestion)
+        String queryText = buildRetrievalQuery(request);
+        List<Double> queryEmbedding = embeddingService.embed(queryText);
 
         // Step 2: Retrieve semantically similar drug records
         ChromaService.ChromaQueryResult chromaResult =
@@ -67,7 +68,7 @@ public class RagPipelineService {
         response.setRagMetadata(RagMetadata.builder()
                 .documentsRetrieved(retrievedDocs.size())
                 .topSimilarityScore(chromaResult.topScore())
-                .vectorCollection("pharma_drugs")
+                .vectorCollection(chromaService.getCollectionName())
                 .retrievalTimeMs(retrievalMs)
                 .llmTimeMs(llmMs)
                 .build());
@@ -78,19 +79,18 @@ public class RagPipelineService {
         return response;
     }
 
-    private String buildQueryText(SubstitutionRequest req) {
-        return String.format(
-            "Find therapeutic alternatives for: %s%s. " +
-            "Drug class: %s. Reason: %s. " +
-            "Member allergies: %s. Current medications: %s. Plan: %s.",
-            req.getDrugName(),
-            req.getDosage() != null ? " " + req.getDosage() : "",
-            req.getDrugClass() != null ? req.getDrugClass() : "unknown",
-            req.getReason() != null ? req.getReason().name() : "OUT_OF_STOCK",
-            req.getAllergies() != null ? String.join(", ", req.getAllergies()) : "none",
-            req.getCurrentMedications() != null ? String.join(", ", req.getCurrentMedications()) : "none",
-            req.getPlanId() != null ? req.getPlanId() : "standard"
-        );
+    /**
+     * Text used to FIND candidate drugs. It deliberately contains only the drug and its class:
+     * allergies, current medications and plan details are applied later by Claude's safety gates,
+     * and including them here would pull the embedding away from the drug documents.
+     */
+    private String buildRetrievalQuery(SubstitutionRequest req) {
+        StringBuilder q = new StringBuilder("Therapeutic alternatives for ").append(req.getDrugName());
+        if (req.getDosage() != null && !req.getDosage().isBlank()) q.append(' ').append(req.getDosage());
+        if (req.getDrugClass() != null && !req.getDrugClass().isBlank()) {
+            q.append(". Drug class: ").append(req.getDrugClass());
+        }
+        return q.toString();
     }
 
     private String buildSystemPrompt() {

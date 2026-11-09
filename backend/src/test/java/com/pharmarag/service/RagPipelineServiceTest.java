@@ -20,6 +20,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RagPipelineServiceTest {
 
+    @Mock private EmbeddingService embeddingService;
     @Mock private ClaudeService claudeService;
     @Mock private ChromaService chromaService;
     @Mock private AuditLogger auditLogger;
@@ -31,7 +32,7 @@ class RagPipelineServiceTest {
     void setUp() {
         objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule());
-        service = new RagPipelineService(claudeService, chromaService, auditLogger, objectMapper);
+        service = new RagPipelineService(embeddingService, claudeService, chromaService, auditLogger, objectMapper);
     }
 
     @Test
@@ -48,7 +49,7 @@ class RagPipelineServiceTest {
         chromaResult.setDocuments(docs);
         chromaResult.setDistances(distances);
 
-        when(claudeService.embed(anyString())).thenReturn(List.of(0.1, 0.2, 0.3));
+        when(embeddingService.embed(anyString())).thenReturn(List.of(0.1, 0.2, 0.3));
         when(chromaService.queryByEmbedding(anyList(), anyInt())).thenReturn(chromaResult);
         when(claudeService.chat(anyString(), anyString())).thenReturn(buildFoundJson());
 
@@ -74,7 +75,7 @@ class RagPipelineServiceTest {
         chromaResult.setDocuments(List.of(List.of("Drug: Rosuvastatin. Interactions: warfarin.")));
         chromaResult.setDistances(List.of(List.of(0.08)));
 
-        when(claudeService.embed(anyString())).thenReturn(List.of(0.1, 0.2));
+        when(embeddingService.embed(anyString())).thenReturn(List.of(0.1, 0.2));
         when(chromaService.queryByEmbedding(anyList(), anyInt())).thenReturn(chromaResult);
         when(claudeService.chat(anyString(), anyString())).thenReturn(buildNoSubstituteJson());
 
@@ -95,7 +96,7 @@ class RagPipelineServiceTest {
         chromaResult.setDocuments(List.of(List.of("Drug: Test.")));
         chromaResult.setDistances(List.of(List.of(0.1)));
 
-        when(claudeService.embed(anyString())).thenReturn(List.of(0.1));
+        when(embeddingService.embed(anyString())).thenReturn(List.of(0.1));
         when(chromaService.queryByEmbedding(anyList(), anyInt())).thenReturn(chromaResult);
         when(claudeService.chat(anyString(), anyString())).thenReturn("THIS IS NOT JSON !!!");
 
