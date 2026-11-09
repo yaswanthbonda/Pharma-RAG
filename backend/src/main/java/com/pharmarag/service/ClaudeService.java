@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -53,13 +54,28 @@ public class ClaudeService {
                 .block();
 
         long elapsed = System.currentTimeMillis() - start;
-        log.info("Claude API call completed in {}ms", elapsed);
 
         if (response == null || response.getContent() == null || response.getContent().isEmpty()) {
             throw new RuntimeException("Empty response from Claude API");
         }
 
-        return response.getContent().get(0).getText();
+        // The reply can contain several blocks (e.g. a reasoning block before the answer).
+        // Keep only the text blocks; never assume the first block is text.
+        String text = response.getContent().stream()
+                .filter(b -> "text".equals(b.getType()) && b.getText() != null)
+                .map(ClaudeResponse.ContentBlock::getText)
+                .collect(Collectors.joining("\n"));
+
+        // Metadata only - no clinical content in this log line.
+        log.info("Claude API call completed in {}ms (stop_reason={}, blocks={}, text_chars={})",
+                elapsed, response.getStopReason(),
+                response.getContent().stream().map(ClaudeResponse.ContentBlock::getType).toList(),
+                text.length());
+
+        if (text.isBlank()) {
+            throw new RuntimeException("Claude returned no text content (stop_reason=" + response.getStopReason() + ")");
+        }
+        return text;
     }
 
     // ── Claude API DTOs ─────────────────────────────────────────────────────
@@ -83,6 +99,8 @@ public class ClaudeService {
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class ClaudeResponse {
         private List<ContentBlock> content;
+        @JsonProperty("stop_reason")
+        private String stopReason;
 
         @Data
         @JsonIgnoreProperties(ignoreUnknown = true)
