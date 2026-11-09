@@ -1,112 +1,118 @@
-# PharmaSub — AI-Powered Drug Substitution Advisor
+# PharmaSub: Drug Substitution Advisor (RAG demo)
 
-> A HIPAA-aware RAG (Retrieval-Augmented Generation) application that recommends safe, formulary-covered drug alternatives when a prescribed medication is out of stock.
+A portfolio project that shows a Retrieval-Augmented Generation (RAG) pipeline end to end: when a prescribed drug is out of stock, suggest a safe, plan-covered alternative and explain why.
 
-Built with **React 18 + MUI**, **Java 17 + Spring Boot 3**, **ChromaDB**, and **Anthropic Claude** (claude-sonnet-4-6).
+**Stack:** React 18 + MUI · Java 17 + Spring Boot 3 · ChromaDB · LangChain4j embeddings (all-MiniLM-L6-v2) · Anthropic Claude · Docker Compose
 
----
-
-## Architecture
-
-```
-┌─────────────────┐     ┌──────────────────────┐     ┌───────────────┐
-│  React 18 + MUI │────▶│ Spring Boot 3 (Java) │────▶│   ChromaDB    │
-│   (Port 3000)   │     │     (Port 8080)       │     │  (Port 8001)  │
-└─────────────────┘     └──────────┬───────────┘     └───────────────┘
-                                   │
-                          ┌────────▼────────┐
-                          │  Anthropic API  │
-                          │  (claude-sonnet)│
-                          └─────────────────┘
-```
-
-### RAG Pipeline Flow
-1. **Ingest** — OpenFDA drug data loaded into ChromaDB at startup
-2. **Query** — User submits a drug + member plan + allergy info
-3. **Embed** — Spring Boot embeds the query via Claude's API
-4. **Retrieve** — ChromaDB returns top-5 semantically similar drug records
-5. **Generate** — Claude reasons through 4 safety gates (equivalency → formulary → interactions → allergies)
-6. **Respond** — Structured JSON with recommendation + confidence + citations
+> **Not for clinical use.** All data is demo data (see [Data](#data)). Every output needs review by a licensed pharmacist.
 
 ---
+
+## How it works
+
+```
+React UI ──▶ Spring Boot API ──▶ embed query (all-MiniLM-L6-v2, in-process)
+                  │                          │
+                  │                          ▼
+                  │                   ChromaDB (cosine, top-5)
+                  │                          │ retrieved drug records
+                  ▼                          ▼
+             Claude (Messages API) ◀── prompt = rules + request + retrieved context
+                  │
+                  ▼
+       structured JSON: status, recommendation, per-candidate gate results, escalation queue
+```
+
+1. **Ingest (first start):** 41 curated drug records plus a synthetic formulary are embedded and stored in ChromaDB. If OpenFDA is reachable, each record also gets a real label excerpt.
+2. **Retrieve:** the query (drug, dose, class) is embedded with the same model and matched against the collection.
+3. **Reason:** Claude evaluates each retrieved candidate through four safety gates: therapeutic equivalency, formulary coverage, interactions, allergies.
+4. **Respond:** one of four outcomes: `FOUND`, `NO_SAFE_SUBSTITUTE`, `NO_COVERED_SUBSTITUTE`, `UNIQUE_DRUG_NO_EQUIVALENT`, with an escalation queue when no substitute exists.
+
+## Design decisions
+
+- **Retrieval query contains only drug facts.** Allergies, current medications and plan are applied by the LLM afterwards. Putting them in the query would pull the embedding away from the drug documents.
+- **Formulary lives in the retrieved context, not in the model's head.** The prompt forbids inventing tiers or copays; a drug missing from the member's plan fails the coverage gate.
+- **Direct Anthropic API call from Spring Boot** (WebClient) instead of a Python sidecar: one language, one service to run.
+- **Embeddings run in-process** (ONNX, no extra API key). Ingestion and query use the same model, and the collection uses cosine distance.
+- **Safe failure:** if the model output can't be parsed, the API returns `NO_SAFE_SUBSTITUTE` with a "contact your pharmacist" message, never a guess.
+
+## HIPAA-aware design
+
+Demo-grade controls, not a compliance claim:
+
+- Pseudonymized member IDs (`MBR-XXXX`); no names, DOB or SSN accepted
+- Audit log records request/outcome status only, with masked member IDs and no drug or clinical details
+- No persistence of requests; history is in browser memory only
+- Raw model output is logged only at DEBUG; no stack traces returned to clients
+- Secrets via environment variables; `.env` is git-ignored; security headers set in Nginx
+
+## Data
+
+| Source | What it is | Real? |
+|---|---|---|
+| `backend/src/main/resources/seed/drugs.json` | 41 drugs across 10 classes: interactions, contraindications, allergy flags | Curated reference, **not authoritative** |
+| `backend/src/main/resources/seed/formulary.json` | Plan tiers and copays for `STANDARD-PPO-2024` and `BASIC-HMO-2024` | **Synthetic**, invented for the demo |
+| OpenFDA label API | Contraindications excerpt attached to each drug (best effort) | Real FDA label text |
+
+Each retrieved document says "synthetic demo data" next to its formulary lines so the model and the reader can tell.
 
 ## Quickstart
 
-### Prerequisites
-- Docker Desktop installed and running
-- An Anthropic API key ([get one here](https://console.anthropic.com))
+Prerequisites: Docker Desktop and an [Anthropic API key](https://console.anthropic.com).
 
-### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/pharma-rag.git
-cd pharma-rag
-```
-
-### 2. Set your API key
-```bash
-cp .env.example .env
-# Edit .env and replace 'your_anthropic_api_key_here' with your real key
-```
-
-### 3. Start everything
-```bash
+git clone https://github.com/yaswanthbonda/Pharma-RAG.git
+cd Pharma-RAG
+cp .env.example .env        # then put your key in .env
 docker compose up --build
 ```
 
-This starts ChromaDB, then the Spring Boot backend (which ingests the drug data into ChromaDB on first start), then the React frontend.
+Open http://localhost:3000. The first start downloads dependencies and ingests the data, so give the backend a minute (`docker compose logs -f backend`).
 
-### 4. Open the app
-Navigate to **http://localhost:3000**
+Try these:
 
----
+| Request | Expected |
+|---|---|
+| Atorvastatin 40mg, plan `STANDARD-PPO-2024`, no allergies | `FOUND` (another statin) |
+| Amoxicillin 500mg, allergy `penicillin` | Not amoxicillin; cephalosporin flagged for pharmacist review, or a non-penicillin option |
+| Rivaroxaban 20mg, plan `BASIC-HMO-2024` | Equivalent anticoagulants may be uncovered or need prescriber approval |
 
-## HIPAA Compliance Notes
+## Run the tests
 
-This application follows HIPAA-aware design principles:
+```bash
+cd backend && mvn test
+```
 
-- **No PHI stored** — Member IDs are pseudonymized; no real names, DOB, or SSN are accepted
-- **Audit logging** — Every substitution request is logged with timestamp, member pseudonym, and drug queried (no PII in logs)
-- **No data persistence of queries** — Substitution requests are not stored in any database
-- **Environment secrets** — API keys are never hardcoded; loaded via environment variables only
-- **HTTPS-ready** — SSL/TLS configuration documented in `backend/src/main/resources/application.yml`
-- **Input validation** — All inputs sanitized before reaching the RAG pipeline
+Unit tests cover JSON parsing of model output, the pipeline with mocked embeddings/Chroma/Claude, audit-log masking, the controller, and the seed data.
 
-> **Disclaimer:** This is a portfolio/demo application. It is NOT intended for real clinical use. All drug recommendations must be reviewed by a licensed pharmacist or physician.
+## Configuration
 
----
+| Variable | Default | Purpose |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | (required) | Claude API key |
+| `ANTHROPIC_MODEL` | `claude-sonnet-5-5` | Model used for reasoning |
+| `OPENFDA_ENRICHMENT` | `true` | Set `false` to run ingestion fully offline |
 
-## Commit History (for GitHub)
-
-| Commit | Description |
-|--------|-------------|
-| `feat: project scaffold` | Docker Compose, folder structure, README |
-| `feat: chromadb + openfda ingestion` | Data loader, ChromaDB client, OpenFDA integration |
-| `feat: spring boot rag service` | Embedding service, vector search, ChromaDB HTTP client |
-| `feat: claude api integration` | Prompt engineering, 4-gate safety logic, response parsing |
-| `feat: react frontend` | Drug substitution UI, MUI components, API service layer |
-| `feat: hipaa compliance layer` | Audit logging, PII sanitization, error boundaries |
-
----
-
-## API Endpoints
+## API
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/v1/substitution/recommend` | Get drug substitution recommendation |
-| `GET` | `/api/v1/drugs/search?q={name}` | Search drugs by name |
-| `GET` | `/api/v1/health` | Health check |
+|---|---|---|
+| `POST` | `/api/v1/substitution/recommend` | Get a substitution recommendation |
+| `GET` | `/api/v1/health` | Application health |
 | `GET` | `/actuator/health` | Spring Actuator health |
 
----
+## Known limitations
 
-## Tech Stack
+- Demo data only; the clinical reference set is small and unreviewed by a pharmacist.
+- The LLM performs the four safety gates. A production system would also check interactions and allergies with deterministic rules and a licensed drug database.
+- No authentication, TLS, or persistent audit store. Those would be required for real PHI.
+- No evaluation set yet. Next step: a labelled list of requests with expected outcomes to measure retrieval and decision accuracy.
+- ChromaDB image is pinned to a 0.5.x release because the backend uses the `/api/v1` HTTP endpoints.
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, MUI v5, Axios |
-| Backend | Java 17, Spring Boot 3, Spring WebFlux |
-| Vector DB | ChromaDB (HTTP API) |
-| LLM | Anthropic Claude claude-sonnet-4-6 |
-| Drug Data | OpenFDA API (free, public) |
-| Container | Docker, Docker Compose |
-| Audit | SLF4J structured logging |
+## Project layout
+
+```
+backend/   Spring Boot service (controller, RAG pipeline, Chroma + Claude clients, seed data, tests)
+frontend/  React + MUI UI (search form, result cards, history)
+docker-compose.yml   chromadb + backend + frontend
+```
