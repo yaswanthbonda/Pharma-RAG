@@ -171,11 +171,19 @@ public class RagPipelineService {
 
     private SubstitutionResponse parseClaudeResponse(String raw) {
         try {
-            // Strip markdown code fences if Claude adds them
+            // Claude may wrap the JSON in markdown fences or add a sentence around it.
+            // Keep only the outermost {...} object.
             String json = raw.replaceAll("```json\\s*", "").replaceAll("```\\s*", "").trim();
-            return objectMapper.readValue(json, SubstitutionResponse.class);
+            int start = json.indexOf('{');
+            int end = json.lastIndexOf('}');
+            if (start < 0 || end <= start) {
+                throw new IllegalArgumentException("no JSON object found in model output");
+            }
+            return objectMapper.readValue(json.substring(start, end + 1), SubstitutionResponse.class);
         } catch (Exception e) {
-            log.error("Failed to parse Claude response: {}. Raw: {}", e.getMessage(), raw);
+            // HIPAA: never log the raw model output at INFO/ERROR - it can echo clinical details.
+            log.error("Failed to parse Claude response ({} chars): {}", raw == null ? 0 : raw.length(), e.getMessage());
+            log.debug("Raw Claude response (DEBUG only): {}", raw);
             // Return a safe fallback
             return SubstitutionResponse.builder()
                     .status(SubstitutionStatus.NO_SAFE_SUBSTITUTE)
