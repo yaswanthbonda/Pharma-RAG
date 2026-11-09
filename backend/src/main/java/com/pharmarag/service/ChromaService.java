@@ -133,12 +133,13 @@ public class ChromaService {
     public int getDocumentCount() {
         if (collectionId == null) return 0;
         try {
-            Map<?, ?> result = chromaWebClient.get()
+            // Chroma's /count endpoint returns a bare JSON number (e.g. 41), not an object
+            Integer count = chromaWebClient.get()
                     .uri("/api/v1/collections/" + collectionId + "/count")
                     .retrieve()
-                    .bodyToMono(Map.class)
+                    .bodyToMono(Integer.class)
                     .block();
-            return result != null ? ((Number) result.getOrDefault("count", 0)).intValue() : 0;
+            return count != null ? count : 0;
         } catch (Exception e) {
             return 0;
         }
