@@ -7,7 +7,8 @@ RUN mvn package -DskipTests -q
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-RUN addgroup -S pharma && adduser -S pharma -G pharma
+# curl is needed by the docker-compose healthcheck (alpine does not ship it)
+RUN apk add --no-cache curl && addgroup -S pharma && adduser -S pharma -G pharma
 COPY --from=build /app/target/pharma-rag-backend-1.0.0.jar app.jar
 RUN chown pharma:pharma app.jar
 USER pharma

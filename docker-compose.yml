@@ -1,8 +1,9 @@
-version: "3.9"
-
 services:
   chromadb:
-    image: chromadb/chroma:latest
+    # Pinned: the backend talks to Chroma's /api/v1 endpoints. Chroma 1.0+ (and the
+    # 'latest' tag) serve the v2 API instead, which would break every call.
+    # If this tag cannot be pulled, any 0.5.x/0.6.x tag works (e.g. 0.5.20).
+    image: chromadb/chroma:0.5.23
     container_name: pharma-chromadb
     ports:
       - "8001:8000"
@@ -11,7 +12,8 @@ services:
     environment:
       - ANONYMIZED_TELEMETRY=false
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      # The Chroma image has no curl; a bash TCP probe is the documented way.
+      test: ["CMD", "/bin/bash", "-c", "cat < /dev/null > /dev/tcp/localhost/8000"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,6 +27,7 @@ services:
       - "8080:8080"
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ANTHROPIC_MODEL=${ANTHROPIC_MODEL:-claude-sonnet-5-5}
       - CHROMA_HOST=chromadb
       - CHROMA_PORT=8000
       - OPENFDA_BASE_URL=https://api.fda.gov/drug

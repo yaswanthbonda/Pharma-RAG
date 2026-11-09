@@ -10,7 +10,8 @@ anthropic:
   api:
     key: ${ANTHROPIC_API_KEY}
     base-url: https://api.anthropic.com
-    model: claude-sonnet-4-6
+    # Override with the ANTHROPIC_MODEL env var (see .env.example)
+    model: ${ANTHROPIC_MODEL:claude-sonnet-5-5}
     max-tokens: 2048
     version: "2023-06-01"
 
